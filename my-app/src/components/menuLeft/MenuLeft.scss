@@ -1,0 +1,72 @@
+$color-menu-title: var(--cyan-1);
+$color-menu-item: var(--grey-4);
+$color-main-content-bg: var(--grey-1);
+$color-item-active: var(--orange-1);
+
+.main {
+    &-layout {
+        display: flex;
+    }
+
+    &-menu {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        padding: 26px 48px 70px;
+        background-color: #fff;
+    }
+
+    &-content {
+        min-height: 100vh;
+        margin-left: 292px; // menu's width
+        flex: 1;
+        background-color: $color-main-content-bg;
+
+        .outlet-wrapper {
+            padding: 24px;
+        }
+    }
+}
+
+.menu {
+    &-logo {
+        display: block;
+        margin-bottom: 35px;
+
+        img {
+            width: 196px;
+        }
+    }
+
+    &-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+        color: $color-menu-title;
+    }
+
+    &-group {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Asap", sans-serif;
+        font-weight: 600;
+        color: $color-menu-item;
+
+        &.active,
+        &:hover {
+            color: $color-item-active;
+        }
+
+        i {
+            font-size: 1.2em;
+        }
+    }
+}

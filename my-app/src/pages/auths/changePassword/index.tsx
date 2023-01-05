@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import './changePassword.scss'
+import '../../../assets/styles/form.scss'
 
 type Inputs = {
   email: string,
@@ -13,7 +14,8 @@ function ChangePassword() {
   const { register, handleSubmit, watch, formState: { errors },getValues  } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = data => console.log(errors);
   const log = () => {
-    console.log(errors.password?.type)
+    const a = getValues()
+    console.log()
 
   }
   return (
@@ -28,7 +30,7 @@ function ChangePassword() {
             <label htmlFor="email">Email</label>
             <input  {...register("email")} type="email" id="email" placeholder="Email" />
             <label htmlFor="oldPassword">Old Password</label>
-            <input type="password" {...register("password" ,{ pattern: /^[0-9]+$/i })} id="oldPassword" placeholder="Old Password" />
+            <input type="password" {...register("password" ,{ required: true })} id="oldPassword" placeholder="Old Password" />
             <label htmlFor="newPassword">New Password</label>
             <input {...register("confirmPassword", { required: true })} type="password" id="newPassword" placeholder="New Password" />
             <button type="submit" onClick={()=>log()} >Change Password</button>
