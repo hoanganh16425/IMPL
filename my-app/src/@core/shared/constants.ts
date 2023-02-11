@@ -5,7 +5,7 @@ export const  menuSections: MenuSection[] = [
       name: "HRM",
       items: [
         {
-          route: "dashboard",
+          route: "users/list",
           name: "User",
           icon: "icon-user",
           isDisplay: true

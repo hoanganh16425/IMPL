@@ -1,0 +1,21 @@
+$menu-fullwidth: 296px;
+$menu-collapse-width: 154px;
+$layout-transition: all 0.4s ease-in-out;
+.main {
+    &-content {
+		min-height: 100vh;
+		margin-left: $menu-fullwidth; // menu's width
+		flex: 1;
+		background-color: var(--grey-7);
+		overflow: hidden;
+		transition: $layout-transition;
+
+		.outlet-wrapper {
+			padding: 44px 24px 24px;
+		}
+
+		&.content-collapsed {
+			margin-left: $menu-collapse-width;
+		}
+	}
+}

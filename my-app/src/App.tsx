@@ -2,14 +2,20 @@ import { Routes, Route, Outlet, Link, Navigate } from "react-router-dom";
 import ChangePassword from "./pages/auths/changePassword";
 import Home from "./pages/dasboard";
 import Login from "./pages/auths/login";
-import MenuLeft from "./components/menuLeft/MenuLeft";
+import Layout from "./components/layout/Layout";
+import UserList from "./pages/users/users-list/UserList";
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Root />} >
-          <Route index path="dashboard" element={<Home />} />
-          <Route path="*" element={<Navigate to="dashboard" replace />} />
+        <Route element={<Layout />}>
+          <Route element={<RequireAuth />}>
+            <Route path="dashboard" element={<Home />} />
+            <Route path="users">
+              <Route path="list" element={<UserList/>}/>
+            </Route>
+            <Route path="*" element={<Navigate to="dashboard" replace />} />
+          </Route>
         </Route>
         <Route path="auth" element={<Auth />}>
           <Route path="change-password" element={<ChangePassword />} />
@@ -21,18 +27,14 @@ function App() {
   );
 }
 
-function Root() {
-  return (
-    <>
-      <div className="main-layout" style={{display: "flex"}}>
-        <MenuLeft></MenuLeft>
-        <div style={{marginLeft : "292px", backgroundColor: "#F5F5F5", width: "100%", height: "200vh" , overflowY: "scroll"}}>
-          <Outlet />
-        </div>
-      </div>
-    </>
-  );
+function RequireAuth() {
+  const isAuthenticated = localStorage.getItem('token') !== null;
+  if (!isAuthenticated) {
+    return <Navigate to="/auth/login" replace />;
+  }
+  return <Outlet />;
 }
+
 function Auth() {
   return (
     <>
@@ -42,6 +44,5 @@ function Auth() {
     </>
   );
 }
-
 
 export default App;
