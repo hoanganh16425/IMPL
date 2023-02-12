@@ -4,6 +4,7 @@ import Home from "./pages/dasboard";
 import Login from "./pages/auths/login";
 import Layout from "./components/layout/Layout";
 import UserList from "./pages/users/users-list/UserList";
+import RequireAuth from "./components/guard/RequireAuth";
 function App() {
   return (
     <div>
@@ -25,14 +26,6 @@ function App() {
       </Routes>
     </div>
   );
-}
-
-function RequireAuth() {
-  const isAuthenticated = localStorage.getItem('token') !== null;
-  if (!isAuthenticated) {
-    return <Navigate to="/auth/login" replace />;
-  }
-  return <Outlet />;
 }
 
 function Auth() {

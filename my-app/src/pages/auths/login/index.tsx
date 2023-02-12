@@ -3,15 +3,16 @@ import "../../../assets/styles/form.scss";
 import "./login.scss";
 import { login } from "../../../@core/apis/auth";
 import { useNavigate } from "react-router-dom";
+import { getProfile } from "../../../@core/apis/users/users";
 function Login() {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
       login(userName, password).then((response) => {
-        navigate("/")
+          navigate("/")
       });
     } catch (error) {
       throw error

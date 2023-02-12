@@ -1,12 +1,37 @@
+import { useSelector } from "react-redux";
+import { UserState } from "../../redux/userSlice";
+import Select from "react-select";
 import "./Header.scss";
+import { useEffect, useState } from "react";
+import { Group, GroupData } from "../../@core/apis/users/user-interface";
 function Header() {
+  const userData = useSelector((state: UserState) => state.userData);
+  const [groupsData, setGroupsData] = useState<Group | any>();
+  const [e, setE] = useState("");
+  useEffect(() => {
+    let temp = "";
+    console.log(temp);
+    // setGroupsData(temp);
+  }, [userData]);
+
+  const test = () => {
+    console.log("dasd", userData);
+    console.log("dasd", userData.userData.userInfo);
+    console.log(Object.keys(userData)[0]);
+  };
+
   return (
     <div className="main-header">
       <div className="company-select">
-        <span className="company-select-title">Group</span>
-        {/* <ng-select [items]="groupList" bindLabel="name" [(ngModel)]="groupSelected"
-                    [searchable]="false" [clearable]="false" placeholder="Group" (change)="handleChangeGroup($event)">
-                </ng-select> */}
+        <span className="company-select-title" onClick={test}>
+          {e ? e : "asda"}
+        </span>
+        <Select
+          className="basic-single"
+          classNamePrefix="select"
+          name="color"
+          options={groupsData}
+        />
       </div>
       <div className="header-content">
         <i className="icon-notify position-relative">
