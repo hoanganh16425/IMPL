@@ -4,21 +4,24 @@ import "./login.scss";
 import { login } from "../../../@core/apis/auth";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "../../../@core/apis/users/users";
+import { useDispatch } from "react-redux";
+import { setGroup, setUserData } from "../../../redux/userSlice";
+
 function Login() {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       login(userName, password).then((response) => {
-          navigate("/")
+          navigate("/");
       });
     } catch (error) {
       throw error
     }
   };
-
   return (
     <>
       <div className="page-container">

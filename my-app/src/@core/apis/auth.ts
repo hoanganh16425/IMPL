@@ -12,7 +12,7 @@ export const login = (username: string, password: string): Promise<AxiosResponse
     .then((response: AxiosResponse) => {
       const token = response.data.access_token;
       localStorage.setItem("token", token);
-      // axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
       return response;
     })
     .catch((error) => {

@@ -1,36 +1,50 @@
-import { useSelector } from "react-redux";
-import { UserState } from "../../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setGroup, UserState } from "../../redux/userSlice";
 import Select from "react-select";
 import "./Header.scss";
 import { useEffect, useState } from "react";
-import { Group, GroupData } from "../../@core/apis/users/user-interface";
+import { Group, GroupData, UserData } from "../../@core/apis/users/user-interface";
+import { useNavigate } from "react-router-dom";
 function Header() {
-  const userData = useSelector((state: UserState) => state.userData);
+  const userData: UserData = useSelector((state: any) => state.user.userData);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [groupsData, setGroupsData] = useState<Group | any>();
-  const [e, setE] = useState("");
   useEffect(() => {
-    let temp = "";
-    console.log(temp);
-    // setGroupsData(temp);
+    let temp = [];
+    if (userData) {
+      temp = userData.groups.map((item) => {
+        return {
+          value: item.id,
+          label: item.code,
+          ...item,
+        }
+      })
+      setGroupsData(temp);
+    }
   }, [userData]);
 
-  const test = () => {
-    console.log("dasd", userData);
-    console.log("dasd", userData.userData.userInfo);
-    console.log(Object.keys(userData)[0]);
-  };
+  const logout = () => {
+    localStorage.clear();
+    navigate('/auth/login')
+  }
+
+  const handleChangGroup = (event: any) => {
+    dispatch(setGroup(event))
+  }
 
   return (
     <div className="main-header">
       <div className="company-select">
-        <span className="company-select-title" onClick={test}>
-          {e ? e : "asda"}
+        <span className="company-select-title">
+          GROUP
         </span>
         <Select
           className="basic-single"
           classNamePrefix="select"
           name="color"
           options={groupsData}
+          onChange={(event) => handleChangGroup(event)}
         />
       </div>
       <div className="header-content">
@@ -50,21 +64,21 @@ function Header() {
             </span>
           </div>
           <p>hoanganh</p>
-          {/* <div ngbDropdown display="dynamic">
-                        <i className="icon-arrow-down icon-dropdown" id="settingPanelDropdown" ngbDropdownToggle></i>
-                        <div className="setting-panel" ngbDropdownMenu aria-labelledby="settingPanelDropdown">
-                            <div className="setting-panel-item" ngbDropdownItem>Edit Profile</div>
-                            <div className="setting-panel-item" (click)="openChangePassword()" ngbDropdownItem>
-                                Change Password
-                            </div>
-                            <div className="setting-panel-item" ngbDropdownItem>Setting</div>
-                            <div className="line"></div>
-                            <button className="setting-panel-item" ngbDropdownItem (click)="logout()">Log Out</button>
-                        </div>
-                    </div> */}
+          <div className="dropdown">
+            <i className="icon-arrow-down icon-dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+            <ul className="dropdown-menu
+            
+            
+            " aria-labelledby="dropdownMenuButton1">
+              <li><p className="dropdown-item">Edit Profile</p></li>
+              <li><p className="dropdown-item">Change Password</p></li>
+              <li><p className="dropdown-item">Setting</p></li>
+              <li><p className="dropdown-item" onClick={() => logout()}>Log Out</p></li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 

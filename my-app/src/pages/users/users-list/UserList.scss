@@ -1,8 +1,104 @@
+$badge-colors: (
+  "green": #00CC08,
+  "blue": #2281E3,
+  "sky":#40C6FF,
+  "orange": #F2AF34,
+  "carrot":#FF6E40,
+  "purple": #8D34FF,
+  "violet":#3F2997,
+  "pink": #F234B1,
+  "red": #CC0000,
+  "mint": #00CC8F,
+  "teal":#298097,
+  "black":#000,
+  "grey":#222
+);
+
+@mixin table-badge($color: $badge-color-mint, $reverse: false) {
+  padding: 6px;
+  border-radius: 4px;
+  color: if($reverse, #fff, $color);
+  background-color: rgba($color, $alpha: if($reverse, 0.5, 0.05));
+
+  &:not(:last-child) {
+    margin-right: 4px;
+  }
+}
+
+
 .user {
   &-title {
     font-family: "Poppins", sans-serif;
     font-size: 18px;
     font-weight: 600;
     color: var(--cyan-3);
+  }
+
+  &-header {
+    margin-bottom: 30px;
+  }
+}
+
+.table-wrapper {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 24px 36px;
+  max-height: calc(100vh - 83px - 35px - 30px - 44px);
+  overflow: auto;
+
+  .email-cell {
+    color: #00AAFC;
+  }
+
+  .css-1ndpvdd-MuiTableCell-root {
+    font-family: "Poppins", sans-serif;
+  }
+
+  .MuiTableCell-head {
+    white-space: nowrap;
+  }
+
+  .MuiTableCell-body {
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.87);
+    font-family: "Poppins", sans-serif;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin: 40px 0px;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    margin: 40px 0px;
+    height: 4px;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 16px;
+    background-color: #d6dee1;
+    cursor: pointer;
+    border: 6px solid transparent;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+}
+
+@each $name,
+$color in $badge-colors {
+  .badge-#{$name} {
+    @include table-badge($color);
+    white-space: nowrap;
+  }
+
+  .badge-#{$name}-reverse {
+    @include table-badge($color, true);
+    white-space: nowrap;
   }
 }

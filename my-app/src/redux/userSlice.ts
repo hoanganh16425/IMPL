@@ -1,23 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserData } from '../@core/apis/users/user-interface';
+import { Group, UserData } from '../@core/apis/users/user-interface';
 
 export interface UserState {
-  userData: any;
+  userData: UserData | null;
+  group?: Group
 }
 
 const initialState: UserState = {
-  userData: {},
+  userData: null,
+  group: undefined
 };
 
-const userSlice = createSlice({
+const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     setUserData: (state, action: PayloadAction<UserData>) => {
       state.userData = action.payload;
     },
+    setGroup: (state,action: PayloadAction<Group>) => {
+      state.group = action.payload;
+    }
   },
 });
 
-export const { setUserData } = userSlice.actions;
-export default userSlice.reducer;
+export const { setUserData , setGroup } = UserSlice.actions;
+export default UserSlice.reducer;

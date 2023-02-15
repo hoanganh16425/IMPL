@@ -1,3 +1,5 @@
+import { ListQueryParams } from "../../share/interface";
+
 export interface userResponse {}
 
 export interface Location {
@@ -54,4 +56,35 @@ export interface UserData {
   userInfo: UserInfo;
   groups: Group[];
   companies: Company[];
+}
+
+export interface User {
+  id: string;
+  fullName?: string;
+  userName?: string;
+  roles?: number[];
+  department: number;
+  location?: string[];
+  supervisor?: string;
+  email?: string;
+  mobileNo?: string;
+  workPass: number;
+  workingDay?: number[];
+  shiftStarts: string;
+  shiftEnds: string;
+}
+
+export interface GetAllUsersQuery extends ListQueryParams {
+  companyId?: string;
+  name?: string;
+  userName?: string;
+  role?: number[];
+  department?: number[];
+  location?: string[];
+  supervisorId?: string;
+  email?: string
+  mobileNo?: string;
+  workPass?: number;
+  workingDay?: number[];
+  isActive?: boolean;
 }

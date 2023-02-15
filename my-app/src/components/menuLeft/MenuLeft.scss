@@ -16,17 +16,6 @@ $color-item-active: var(--orange-1);
         padding: 26px 48px 70px;
         background-color: #fff;
     }
-
-    &-content {
-        min-height: 100vh;
-        margin-left: 292px; // menu's width
-        flex: 1;
-        background-color: $color-main-content-bg;
-
-        .outlet-wrapper {
-            padding: 24px;
-        }
-    }
 }
 
 .menu {

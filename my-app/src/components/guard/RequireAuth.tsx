@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { UserData } from "../../@core/apis/users/user-interface";
 import { getProfile } from "../../@core/apis/users/users";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserData } from "../../redux/userSlice";
+import { setGroup, setUserData } from "../../redux/userSlice";
 
 interface UserState {
   userData: UserData | null;
@@ -18,6 +18,7 @@ function RequireAuth() {
   const getUserDetail = async () => {
     const data = await getProfile();
     dispatch(setUserData(data));
+    dispatch(setGroup(data.groups[0]));
   };
 
   const isAuthenticated = localStorage.getItem("token") !== null;
