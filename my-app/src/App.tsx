@@ -5,6 +5,7 @@ import Login from "./pages/auths/login";
 import Layout from "./components/layout/Layout";
 import UserList from "./pages/users/users-list/UserList";
 import RequireAuth from "./components/guard/RequireAuth";
+import UserCreate from "./pages/users/user-create/UserCreate";
 function App() {
   return (
     <div>
@@ -14,6 +15,7 @@ function App() {
             <Route path="dashboard" element={<Home />} />
             <Route path="users">
               <Route path="list" element={<UserList/>}/>
+              <Route path="create" element={<UserCreate/>}/>
             </Route>
             <Route path="*" element={<Navigate to="dashboard" replace />} />
           </Route>

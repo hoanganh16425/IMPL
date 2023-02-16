@@ -3,15 +3,24 @@ import { setGroup, UserState } from "../../redux/userSlice";
 import Select from "react-select";
 import "./Header.scss";
 import { useEffect, useState } from "react";
-import { Group, GroupData, UserData } from "../../@core/apis/users/user-interface";
+import { Group, GroupData, GroupSelect, UserData } from "../../@core/apis/users/user-interface";
 import { useNavigate } from "react-router-dom";
 function Header() {
   const userData: UserData = useSelector((state: any) => state.user.userData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [groupsData, setGroupsData] = useState<Group | any>();
+  const [groupsData, setGroupsData] = useState<GroupSelect[] | any>();
+  const defaultValue = {
+    value: "b39f1638-0f6c-499a-9f8a-62354499a941",
+    label: "IMPL",
+    name: "Infiniti Marine Pte Ltd",
+    address: "76 Playfair Rd, #03-05 LHK2 Building",
+    country: "Singapore",
+    logo: "http://api.implerp.airlab.dev/Resources/IMPL.png"
+  }
+
   useEffect(() => {
-    let temp = [];
+    let temp: GroupSelect | any = [];
     if (userData) {
       temp = userData.groups.map((item) => {
         return {
@@ -40,11 +49,12 @@ function Header() {
           GROUP
         </span>
         <Select
-          className="basic-single"
+          className="basic-single select-group"
           classNamePrefix="select"
           name="color"
           options={groupsData}
           onChange={(event) => handleChangGroup(event)}
+          defaultValue={defaultValue}
         />
       </div>
       <div className="header-content">
@@ -63,13 +73,10 @@ function Header() {
               <span className="visually-hidden">New alerts</span>
             </span>
           </div>
-          <p>hoanganh</p>
+          <p>{userData?.userInfo?.name}</p>
           <div className="dropdown">
             <i className="icon-arrow-down icon-dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
-            <ul className="dropdown-menu
-            
-            
-            " aria-labelledby="dropdownMenuButton1">
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><p className="dropdown-item">Edit Profile</p></li>
               <li><p className="dropdown-item">Change Password</p></li>
               <li><p className="dropdown-item">Setting</p></li>

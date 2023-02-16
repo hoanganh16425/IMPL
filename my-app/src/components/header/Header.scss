@@ -125,99 +125,18 @@ $layout-transition: all 0.4s ease-in-out;
 				text-transform: uppercase;
 			}
 
-			.ng-select {
-
-				.ng-value-container,
-				.ng-arrow-wrapper {
-					padding: 0;
-				}
-
-				&.ng-select-focused {
-					.ng-select-container {
-						box-shadow: none;
-					}
-				}
-
-				.ng-select-container {
+			.select-group {
+				.select__control {
+					background-color: var(--grey-8);
+					border-color: var(--grey-8);
 					border-radius: 25px;
-					background-color: $group-select-bg-color;
-					border-color: $group-select-bg-color;
-					padding: 0 14px;
-					font-size: 14px;
-					font-weight: 500;
-					color: var(--black-2);
-					text-transform: uppercase;
-
-					.ng-placeholder {
-						color: var(--black-2);
-					}
-
-					// .ng-arrow {
-					// 	@extend .icon-arrow-left;
-					// 	border: none;
-					// 	font-family: "impl";
-					// 	font-size: 0.8em;
-
-					// 	&::before {
-					// 		display: inline-block;
-					// 		transform: rotate(-90deg);
-					// 		transition: $layout-transition;
-					// 	}
-					// }
 				}
 
-				.ng-dropdown-panel {
-					width: max-content;
-					box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
-					border-radius: 10px;
-					border: none;
-
-					&-items {
-						padding: 20px 16px;
-					}
-
-					.scroll-host {
-						&::-webkit-scrollbar-track {
-							background-color: #FFF;
-							margin: 16px 0px;
-						}
-
-						&::-webkit-scrollbar {
-							width: 4px;
-							background-color: transparent;
-						}
-
-						&::-webkit-scrollbar-thumb {
-							border-radius: 10px;
-							background-color: rgb(221, 213, 213);
-							width: 5px;
-						}
-					}
-
-					.ng-option {
-						border-radius: 10px;
-						font-weight: 500;
-						text-transform: uppercase;
-
-						&:hover,
-						&.ng-option-selected {
-							background-color: rgba(#1badf3, 0.1);
-						}
-
-						&.ng-option-marked:not(:hover):not(.ng-option-selected) {
-							background-color: inherit;
-						}
-					}
+				.select__indicator-separator {
+					display: none;
 				}
-
-				&.ng-select-opened {
-					.ng-arrow {
-						inset: unset;
-
-						&::before {
-							transform: rotate(90deg);
-						}
-					}
+				.select__menu {
+					min-width: 140px;
 				}
 			}
 		}

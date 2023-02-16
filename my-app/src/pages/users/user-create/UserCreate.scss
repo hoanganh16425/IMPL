@@ -1,0 +1,22 @@
+$font-poppins: "Poppins", Arial, "Helvetica Neue", Helvetica, sans-serif;
+$font-roboto: "Roboto", Arial, "Helvetica Neue", Helvetica, sans-serif;
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    
+    p {
+        font-family: $font-poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 150%;
+        color: #66B1D5;
+    }
+
+    &-filter {
+        display: flex;
+        gap: 10px;
+    }
+}

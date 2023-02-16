@@ -19,6 +19,15 @@ export interface Group {
   logo: string;
 }
 
+export interface GroupSelect {
+  value: string;
+  label: string;
+  name: string;
+  address: string;
+  country: string;
+  logo: string;
+}
+
 export interface GroupData {
   value: string;
   label: string;

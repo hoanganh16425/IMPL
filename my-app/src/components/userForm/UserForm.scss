@@ -1,0 +1,249 @@
+$font-poppins: "Poppins", Arial, "Helvetica Neue", Helvetica, sans-serif;
+$font-roboto: "Roboto", Arial, "Helvetica Neue", Helvetica, sans-serif;
+$disable-input-color: #F5F5F5;
+
+.form {
+    &-container {
+        font-family: $font-poppins;
+        font-style: normal;
+        width: 100%;
+    }
+
+    &-block {
+        border-radius: 15px;
+        padding: 14px 20px;
+        background-color: #fff;
+        margin-bottom: 26px;
+
+        &-title {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        &-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 15px;
+            column-gap: 20px;
+
+            .input-wrap {
+                display: flex;
+                width: 100%;
+                gap: 20px;
+                position: relative;
+
+                .cursorNotAllowed {
+                    cursor: not-allowed !important;
+                }
+
+                // align-items: center;
+                #company {
+                    ::ng-deep.ng-arrow-wrapper {
+                        display: none;
+                    }
+
+                    ::ng-deep .ng-value {
+                        @media screen and (max-width: 1500px) and (min-width: 1400px) {
+                            width: 100px;
+                        }
+                    }
+                }
+
+                label,
+                p {
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 150%;
+                    color: #000000;
+                    width: 25%;
+                    margin-top: 6px;
+                }
+
+                ::ng-deep .mat-datepicker-toggle {
+                    position: absolute;
+                    right: 20px;
+                    transform: translateY(-7px);
+                }
+
+                ::ng-deep mat-datepicker {
+                    position: absolute;
+                }
+
+                ::ng-deep .mat-mdc-icon-button {
+                    --mat-mdc-button-persistent-ripple-color: unset;
+                    --mat-mdc-button-ripple-color: unset;
+                }
+
+                div {
+                    width: 70%;
+                    height: fit-content;
+
+                    mat-error {
+                        font-size: 12px;
+
+                        &::before {
+                            display: none;
+                        }
+                    }
+
+                    i {
+                        position: absolute;
+                        right: 10px;
+                        top: calc(15px - 0.5em);
+                        color: #3ba3dd;
+                        cursor: pointer;
+                    }
+
+                    ::ng-deep .mat-datepicker-toggle {
+                        width: 100%;
+                        right: 0px;
+                        cursor: pointer;
+
+                        button {
+                            float: right;
+                        }
+                    }
+                }
+
+                input {
+                    padding: 0 10px;
+
+                    &[type="time"] {
+                        &::-webkit-calendar-picker-indicator {
+                            cursor: pointer;
+                        }
+                    }
+
+                    &.mat-datepicker-input:disabled+.mat-datepicker-toggle {
+                        cursor: not-allowed;
+                    }
+                }
+
+                ng-select {
+                    height: unset !important;
+
+                    ::ng-deep.ng-select-container {
+                        cursor: pointer;
+                        height: unset !important;
+                    }
+                }
+
+                input,
+                ng-select {
+                    width: 100%;
+                    background: var(--grey-6);
+                    border-radius: 5px;
+                    border: none;
+                    height: 30px;
+                    font-size: 12px;
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                    &:disabled,
+                    &:read-only {
+                        background-color: $disable-input-color;
+                        cursor: not-allowed;
+                    }
+
+                    ::ng-deep .ng-select-container {
+                        min-height: 30px;
+                        height: 30px;
+                        background: var(--grey-6);
+                        border: none;
+                        box-shadow: none;
+                    }
+
+                    ::ng-deep .ng-dropdown-panel.ng-select-bottom {
+                        margin-top: 3px;
+                    }
+
+                    ::ng-deep .ng-value {
+                        width: unset;
+                    }
+
+                    ::ng-deep .ng-input {
+                        top: 0;
+                    }
+                }
+
+                ::ng-deep .ng-select {
+                    &.ng-select-disabled {
+                        .ng-select-container {
+                            background-color: $disable-input-color;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+
+                /* Chrome, Safari, Edge, Opera */
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                /* Firefox */
+                input[type="number"] {
+                    -moz-appearance: textfield;
+                    appearance: textfield;
+                }
+
+                .ng-value-label {
+                    display: inline-block;
+                    max-width: 103px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            input[type="checkbox"] {
+                padding: 0;
+                height: initial;
+                width: initial;
+                margin-bottom: 0;
+                display: none;
+                cursor: pointer;
+            }
+
+            .checkbox label {
+                position: relative;
+                cursor: pointer;
+            }
+
+            .checkbox label:before {
+                content: "";
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: transparent;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+                padding: 10px;
+                display: inline-block;
+                position: relative;
+                vertical-align: middle;
+                cursor: pointer;
+                margin-right: 5px;
+                border: 2px solid #0ea5e9;
+                border-radius: 6px;
+            }
+
+            .checkbox input:checked+label:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 4px;
+                left: 9px;
+                width: 6px;
+                height: 14px;
+                border: solid #0ea5e9;
+                border-width: 0 3px 3px 0;
+                transform: rotate(45deg);
+            }
+        }
+    }
+}

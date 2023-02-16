@@ -42,7 +42,7 @@ $badge-colors: (
 .table-wrapper {
   background-color: #fff;
   border-radius: 8px;
-  padding: 24px 36px;
+  padding: 0px 24px 36px 24px;
   max-height: calc(100vh - 83px - 35px - 30px - 44px);
   overflow: auto;
 
@@ -56,6 +56,20 @@ $badge-colors: (
 
   .MuiTableCell-head {
     white-space: nowrap;
+  }
+
+  .MuiTableRow-head {
+    position: relative;
+    z-index: 0;
+  }
+
+  .MuiTableBody-root {
+    .MuiTableRow-root {
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+    }
   }
 
   .MuiTableCell-body {
