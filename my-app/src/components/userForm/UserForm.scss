@@ -29,12 +29,77 @@ $disable-input-color: #F5F5F5;
             row-gap: 15px;
             column-gap: 20px;
 
-            .input-wrap {
+            .select-wrap {
                 display: flex;
                 width: 100%;
                 gap: 20px;
                 position: relative;
 
+                label,
+                p {
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 150%;
+                    color: #000000;
+                    width: 25%;
+                    margin-top: 6px;
+                }
+
+                .select-css {
+                    width: 70%;
+                }
+
+                .select {
+                    &__control {
+                        &--is-focused {
+                            outline: none;
+                            box-shadow: none;
+                            border: none;
+                            background: var(--grey-6);
+                        }
+                    }
+                }
+
+                // .select__control--
+
+                .css-b62m3t-container {
+                    .css-13cymwt-control {
+                        border: none;
+                        background: var(--grey-6);
+                        border-radius: 5px;
+
+                        &:focus {
+                            box-shadow: none;
+                            background: var(--grey-6);
+                        }
+
+                        .css-1u9des2-indicatorSeparator {
+                            display: none;
+                        }
+                    }
+                }
+
+
+            }
+
+            .input-wrap {
+                display: flex;
+                width: 100%;
+                gap: 20px;
+                position: relative;
+                .MuiFormControl-root {
+                    width: 100%;
+                    background-color: var(--grey-6);
+                    .MuiInputBase-root {
+                        width: 100%;
+                        div {
+                            width: unset;
+                        }
+                        .MuiOutlinedInput-notchedOutline {
+                            border: none;
+                        }
+                    }
+                }
                 .cursorNotAllowed {
                     cursor: not-allowed !important;
                 }
@@ -59,22 +124,7 @@ $disable-input-color: #F5F5F5;
                     line-height: 150%;
                     color: #000000;
                     width: 25%;
-                    margin-top: 6px;
-                }
-
-                ::ng-deep .mat-datepicker-toggle {
-                    position: absolute;
-                    right: 20px;
-                    transform: translateY(-7px);
-                }
-
-                ::ng-deep mat-datepicker {
-                    position: absolute;
-                }
-
-                ::ng-deep .mat-mdc-icon-button {
-                    --mat-mdc-button-persistent-ripple-color: unset;
-                    --mat-mdc-button-ripple-color: unset;
+                    margin-top: 11px;
                 }
 
                 div {
@@ -122,22 +172,13 @@ $disable-input-color: #F5F5F5;
                     }
                 }
 
-                ng-select {
-                    height: unset !important;
-
-                    ::ng-deep.ng-select-container {
-                        cursor: pointer;
-                        height: unset !important;
-                    }
-                }
-
                 input,
                 ng-select {
                     width: 100%;
                     background: var(--grey-6);
                     border-radius: 5px;
                     border: none;
-                    height: 30px;
+                    height: 38px;
                     font-size: 12px;
 
                     &:focus {

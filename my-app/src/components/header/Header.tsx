@@ -51,7 +51,7 @@ function Header() {
         <Select
           className="basic-single select-group"
           classNamePrefix="select"
-          name="color"
+          name="group"
           options={groupsData}
           onChange={(event) => handleChangGroup(event)}
           defaultValue={defaultValue}

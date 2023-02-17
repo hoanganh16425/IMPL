@@ -31,3 +31,9 @@ export type RequestQueryFn = (queries?: object) => string;
 export interface ISourceAndTargetKey {
   [key: string]: any;
 }
+
+export interface ISelectType {
+  value: string | number | boolean;
+  label: string;
+  disabled?: boolean;
+}

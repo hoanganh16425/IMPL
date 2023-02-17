@@ -97,3 +97,84 @@ export interface GetAllUsersQuery extends ListQueryParams {
   workingDay?: number[];
   isActive?: boolean;
 }
+
+export interface UserGeneralInfo {
+  name: string;
+  userName: string;
+  roles: number[];
+  password: string;
+  email?: string;
+  phoneNumber: string;
+  dateJoined: string;
+  postalCode?: string;
+  addressOne: string;
+  addressTwo?: string;
+}
+
+export interface ParticularModel {
+  nricfin: string;
+  citizenshipId: number;
+  dateOfBirth: string;
+  workPass: number;
+  workPassExpiry?: string;
+  emergencyContactNo: string;
+  relationship: string;
+  companyId: string;
+  groupIds: string[];
+}
+
+export interface ContractModel {
+  employmentTerm: number;
+  dateLeft?: string;
+  bankName?: string;
+  accountNo?: string;
+  basic: string;
+  allowance: string;
+}
+
+export interface LeavesModel {
+  annualLeave: number;
+  medicalLeave: number;
+  urgentLeave: number;
+  nsReservist: number;
+  compassionateLeave: number;
+  hospitalisation: number;
+  marriage: number;
+  maternity: number;
+  paternity: number;
+  unpaid: number;
+  childcare: number;
+  offInLieu?: number;
+}
+
+export interface PermitModel {
+  jpPass?: string;
+  jpPassExpiryDate?: string;
+  psaPass?: string;
+  psaPassExpiryDate?: string;
+  hazmat?: string;
+  hazmatExpiryDate?: string;
+  driverLicense?: string
+}
+
+export interface WorkingDetailModel {
+  jobTitle: string;
+  department: 0;
+  locationIds: string[];
+  workingDay: number[];
+  shiftStarts: string;
+  shiftEnds: string;
+  wfh?: boolean;
+  ot?: boolean;
+  mealbreak: boolean;
+  supervisorId: string;
+}
+
+export interface CreateUserRequest {
+  userGeneralInfo: UserGeneralInfo;
+  particularModel: ParticularModel;
+  contractModel: ContractModel;
+  leaveModel: LeavesModel;
+  permitModel: PermitModel;
+  workingDetailModel: WorkingDetailModel;
+}

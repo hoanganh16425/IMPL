@@ -1,3 +1,5 @@
+import { Department, UserType, WorkingDay } from "../share/enum";
+import { ISelectType } from "../share/interface";
 import { MenuSection } from "./interface";
 
 export const menuSections: MenuSection[] = [
@@ -152,3 +154,36 @@ export const USER_TYPE_COLOR: string[] = [
   "teal"
 ];
 
+export const USERTYPE: ISelectType[] = [
+  { value: UserType.SUPERADMIN, label: 'Super Admin', disabled: false },
+  { value: UserType.HR, label: 'HR', disabled: false },
+  { value: UserType.MANAGER, label: 'Manager', disabled: false },
+  { value: UserType.SALE, label: 'Sale', disabled: false },
+  { value: UserType.CS, label: 'Cs', disabled: false },
+  { value: UserType.ACCOUNT, label: 'Acount', disabled: false },
+  { value: UserType.TRAFFIC_CONTROLLER, label: 'Traffic conntroller', disabled: false },
+  { value: UserType.DRIVER, label: 'Driver', disabled: false },
+  { value: UserType.OP_ADMIN, label: 'OP Admin', disabled: false },
+  { value: UserType.PORT_OP, label: 'Portop', disabled: false },
+  { value: UserType.PERMIT, label: 'Permit', disabled: false },
+  { value: UserType.CREW, label: 'Crew', disabled: false },
+];
+
+export const DEPARTMENT: ISelectType[] = [
+	{ value: Department.SUPPORT, label: 'Support' },
+	{ value: Department.OPERATION, label: 'Operation' },
+	{ value: Department.TRANSPORT, label: 'Transport' },
+	{ value: Department.CS, label: 'CS' },
+	{ value: Department.FINANCE, label: 'Finance' },
+	{ value: Department.CREW, label: 'Crew' },
+];
+
+export const WORKINGDAY: ISelectType[] = [
+	{ value: WorkingDay.MONDAY, label: 'Monday' },
+	{ value: WorkingDay.TUESDAY, label: 'Tuesday' },
+	{ value: WorkingDay.WEDNESDAY, label: 'Wednesday' },
+	{ value: WorkingDay.THURSDAY, label: 'Thursday' },
+	{ value: WorkingDay.FRIDAY, label: 'Friday' },
+	{ value: WorkingDay.SATURDAY, label: 'Saturday' },
+	{ value: WorkingDay.SUNDAY, label: 'Sunday' },
+];

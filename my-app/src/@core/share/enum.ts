@@ -30,3 +30,18 @@ export enum WorkingDay {
     FRIDAY,
     SATURDAY,
 }
+
+export enum UserType {
+    SUPERADMIN,
+    HR,
+    MANAGER,
+    SALE,
+    CS,
+    ACCOUNT,
+    TRAFFIC_CONTROLLER,
+    DRIVER,
+    OP_ADMIN,
+    PORT_OP,
+    PERMIT,
+    CREW
+}

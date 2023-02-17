@@ -1,32 +1,74 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './UserForm.scss'
+import Select from "react-select"
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DEPARTMENT, USERTYPE, WORKINGDAY } from '../../@core/shared/constants'
+import { TextField } from '@mui/material';
+import moment, { Moment } from 'moment';
+import { useSelector } from 'react-redux';
+import { CreateUserRequest, UserData } from '../../@core/apis/users/user-interface';
+import { Controller, ControllerRenderProps, useForm } from "react-hook-form";
+
+type FormData = {
+    userForm: CreateUserRequest
+};
 
 function UserForm() {
+    const [selectedDate, setSelectedDate] = useState(moment());
+    const businessCompany: UserData = useSelector((state: any) => state.user.userData)
+    const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const handleDateChange = (date: Moment | null) => {
+        if (date) {
+            setSelectedDate(date);
+        }
+    };
+
+    const onSubmit = handleSubmit(data => console.log(data));
+
     return (
         <>
-            <div className="form-container">
+            <form className="form-container" onSubmit={onSubmit}>
                 <div className="form-content">
                     {/* <!-- GENERAL block --> */}
                     <div className="form-block">
                         <p className="form-block-title">GENERAL INFO</p>
-                        <div className="form-block-content">
+                        <div className="form-block-content" {...register("userForm.userGeneralInfo")}>
                             <div className="input-wrap error-invisible">
                                 <label>Name<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text"  {...register("userForm.userGeneralInfo.name")} />
                                 </div>
                             </div>
                             <div className="input-wrap error-invisible">
                                 <label>Username<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.userGeneralInfo.userName")} />
                                 </div>
                             </div>
-                            <div className="input-wrap error-invisible">
+                            <div className="select-wrap error-invisible">
                                 <label>User Type<span className="text-danger">*</span></label>
-                                <div>
-                                    <input type="text" />
-                                </div>
+                                {/* <Controller
+                                    name="select"
+                                    control={control}
+                                    render={({ field: { onChange, value } }: ControllerRenderProps<FormValues, 'select'>) => (
+                                        <Select
+                                            className="basic-single select-css"
+                                            classNamePrefix="select"
+                                            placeholder=""
+                                            options={USERTYPE}
+                                            isMulti={true}
+                                            value={value}
+                                            onChange={onChange}
+                                        />
+                                    )}
+                                /> */}
+                                <Select
+                                    className="basic-single select-css"
+                                    classNamePrefix="select"
+                                    placeholder=""
+                                    options={USERTYPE}
+                                    isMulti={true}
+                                />
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Password<span className="text-danger">*</span></label >
@@ -50,7 +92,13 @@ function UserForm() {
                             <div className="input-wrap error-invisible">
                                 <label>Date Joined<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <DesktopDatePicker
+                                        label=""
+                                        inputFormat="MM/DD/YYYY"
+                                        value={selectedDate}
+                                        onChange={handleDateChange}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
                                 </div>
                             </div >
                             <div className="input-wrap error-invisible">
@@ -83,17 +131,27 @@ function UserForm() {
                                     <input type="text" />
                                 </div>
                             </div>
-                            <div className="input-wrap error-invisible">
+                            <div className="select-wrap error-invisible">
                                 <label>Citizenship<span className="text-danger">*</span></label>
-                                <div>
-                                    <input type="text" />
-                                </div>
+                                <Select
+                                    className="basic-single select-css"
+                                    classNamePrefix="select"
+                                    placeholder=""
+                                    options={USERTYPE}
+                                    isMulti={true}
+                                />
                             </div>
                             <div className="input-wrap error-invisible">
                                 <label>DOB<span className="text-danger">*</span></label>
-                                <div className="position-relative">
-                                    <input />
-                                </div >
+                                <div>
+                                    <DesktopDatePicker
+                                        label=""
+                                        inputFormat="MM/DD/YYYY"
+                                        value={selectedDate}
+                                        onChange={handleDateChange}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
+                                </div>
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Age</label>
@@ -125,17 +183,30 @@ function UserForm() {
                                     <input type="text" />
                                 </div>
                             </div >
-                            <div className="input-wrap error-invisible">
+                            <div className="select-wrap error-invisible">
                                 <label>Business company<span className="text-danger">*</span></label>
-                                <div>
-                                    <input type="text" />
-                                </div>
+                                <Select
+                                    className="basic-single select-css"
+                                    classNamePrefix="select"
+                                    placeholder=""
+                                    options={businessCompany && businessCompany.companies.length > 0 ? businessCompany.companies.map((item) => {
+                                        return {
+                                            value: item.id,
+                                            label: item.code,
+                                            ...item
+                                        }
+                                    }) : undefined}
+                                />
                             </div >
-                            <div className="input-wrap error-invisible">
+                            <div className="select-wrap error-invisible">
                                 <label>Group<span className="text-danger">*</span></label>
-                                <div>
-                                    <input type="text" />
-                                </div>
+                                <Select
+                                    className="basic-single select-css"
+                                    classNamePrefix="select"
+                                    placeholder=""
+                                    options={USERTYPE}
+                                    isMulti={true}
+                                />
                             </div >
                         </div >
                     </div >
@@ -158,29 +229,45 @@ function UserForm() {
 
                             </div>
                         </div>
-                        <div className="input-wrap error-invisible">
+                        <div className="select-wrap error-invisible">
                             <label>Department<span className="text-danger">*</span></label>
-                            <div>
-                                <input type="text" />
-                            </div>
+                            <Select
+                                className="basic-single select-css"
+                                classNamePrefix="select"
+                                placeholder=""
+                                options={DEPARTMENT}
+                                isMulti={true}
+                            />
                         </div >
-                        <div className="input-wrap error-invisible">
+                        <div className="select-wrap error-invisible">
                             <label>Location<span className="text-danger">*</span></label>
-                            <div>
-                                <input type="text" />
-                            </div>
+                            <Select
+                                className="basic-single select-css"
+                                classNamePrefix="select"
+                                placeholder=""
+                                options={USERTYPE}
+                                isMulti={true}
+                            />
                         </div >
-                        <div className="input-wrap error-invisible">
+                        <div className="select-wrap error-invisible">
                             <label>Supervisor<span className="text-danger">*</span></label>
-                            <div>
-                                <input type="text" />
-                            </div>
+                            <Select
+                                className="basic-single select-css"
+                                classNamePrefix="select"
+                                placeholder=""
+                                options={USERTYPE}
+                                isMulti={true}
+                            />
                         </div >
-                        <div className="input-wrap error-invisible">
+                        <div className="select-wrap error-invisible">
                             <label>Working Day<span className="text-danger">*</span></label>
-                            <div>
-                                <input type="text" />
-                            </div>
+                            <Select
+                                className="basic-single select-css"
+                                classNamePrefix="select"
+                                placeholder=""
+                                options={WORKINGDAY}
+                                isMulti={true}
+                            />
                         </div >
                         <div className="input-wrap error-invisible">
                             <label>Shift starts<span className="text-danger">*</span></label>
@@ -215,16 +302,26 @@ function UserForm() {
                 <div className="form-block" >
                     <p className="form-block-title">CONTRACT</p>
                     <div className="form-block-content">
-                        <div className="input-wrap error-invisible error-invisible">
+                        <div className="select-wrap error-invisible error-invisible">
                             <label>Employment Term<span className="text-danger">*</span></label>
-                            <div>
-                                <input type="text" />
-                            </div>
+                            <Select
+                                className="basic-single select-css"
+                                classNamePrefix="select"
+                                placeholder=""
+                                options={USERTYPE}
+                                isMulti={true}
+                            />
                         </div >
                         <div className="input-wrap error-invisible">
                             <label>Date left</label>
                             <div>
-                                <input type="text" />
+                                <DesktopDatePicker
+                                    label=""
+                                    inputFormat="MM/DD/YYYY"
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
                             </div>
                         </div >
                         <div className="input-wrap error-invisible" >
@@ -266,7 +363,13 @@ function UserForm() {
                         <div className="input-wrap error-invisible">
                             <label>JP Pass Expiry</label>
                             <div>
-                                <input type="text" />
+                                <DesktopDatePicker
+                                    label=""
+                                    inputFormat="MM/DD/YYYY"
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
                             </div>
                         </div>
                         <div className="input-wrap error-invisible">
@@ -278,7 +381,13 @@ function UserForm() {
                         <div className="input-wrap error-invisible">
                             <label>PSA Pass Expiry</label>
                             <div>
-                                <input type="text" />
+                                <DesktopDatePicker
+                                    label=""
+                                    inputFormat="MM/DD/YYYY"
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
                             </div>
                         </div >
                         <div className="input-wrap error-invisible">
@@ -289,6 +398,15 @@ function UserForm() {
                         </div>
                         <div className="input-wrap error-invisible">
                             <label>Hazmat Expiry</label>
+                            <div>
+                                <DesktopDatePicker
+                                    label=""
+                                    inputFormat="MM/DD/YYYY"
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </div>
                         </div >
                         <div className="input-wrap error-invisible">
                             <label>Driver License</label>
@@ -376,7 +494,7 @@ function UserForm() {
                         </div>
                     </div >
                 </div >
-            </div >
+            </form >
         </>
     )
 }
