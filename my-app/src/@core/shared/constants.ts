@@ -1,4 +1,4 @@
-import { Department, UserType, WorkingDay } from "../share/enum";
+import { Department, PassType, UserType, WorkingDay } from "../share/enum";
 import { ISelectType } from "../share/interface";
 import { MenuSection } from "./interface";
 
@@ -186,4 +186,13 @@ export const WORKINGDAY: ISelectType[] = [
 	{ value: WorkingDay.FRIDAY, label: 'Friday' },
 	{ value: WorkingDay.SATURDAY, label: 'Saturday' },
 	{ value: WorkingDay.SUNDAY, label: 'Sunday' },
+];
+
+export const WORKPASS: ISelectType[] = [
+	{ value: PassType.EPASS, label: 'E-Pass' },
+	{ value: PassType.WPASS, label: 'W-Pass' },
+	{ value: PassType.SPASS, label: 'S-Pass' },
+	{ value: PassType.SGNRIC, label: 'SG NRIC' },
+	{ value: PassType.KTP, label: 'KTP' },
+	{ value: PassType.MSIANRIC, label: 'MSIA NRIC' },
 ];

@@ -2,24 +2,25 @@ import React, { useState } from 'react'
 import './UserForm.scss'
 import Select from "react-select"
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { DEPARTMENT, USERTYPE, WORKINGDAY } from '../../@core/shared/constants'
-import { TextField } from '@mui/material';
+import { DEPARTMENT, USERTYPE, WORKINGDAY, WORKPASS } from '../../@core/shared/constants'
+import { Input, TextField } from '@mui/material';
 import moment, { Moment } from 'moment';
 import { useSelector } from 'react-redux';
 import { CreateUserRequest, UserData } from '../../@core/apis/users/user-interface';
 import { Controller, ControllerRenderProps, useForm } from "react-hook-form";
+import { UserType } from '../../@core/share/enum';
 
 type FormData = {
     userForm: CreateUserRequest
 };
 
 function UserForm() {
-    const [selectedDate, setSelectedDate] = useState(moment());
+    const [selectedDate, setSelectedDate] = useState<string | null>();
     const businessCompany: UserData = useSelector((state: any) => state.user.userData)
-    const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { control, register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
     const handleDateChange = (date: Moment | null) => {
         if (date) {
-            setSelectedDate(date);
+            // setSelectedDate(date);
         }
     };
 
@@ -47,76 +48,72 @@ function UserForm() {
                             </div>
                             <div className="select-wrap error-invisible">
                                 <label>User Type<span className="text-danger">*</span></label>
-                                {/* <Controller
-                                    name="select"
+                                <Controller
+                                    name="userForm.userGeneralInfo.roles"
                                     control={control}
-                                    render={({ field: { onChange, value } }: ControllerRenderProps<FormValues, 'select'>) => (
-                                        <Select
-                                            className="basic-single select-css"
-                                            classNamePrefix="select"
-                                            placeholder=""
-                                            options={USERTYPE}
-                                            isMulti={true}
-                                            value={value}
-                                            onChange={onChange}
-                                        />
-                                    )}
-                                /> */}
-                                <Select
-                                    className="basic-single select-css"
-                                    classNamePrefix="select"
-                                    placeholder=""
-                                    options={USERTYPE}
-                                    isMulti={true}
+                                    render={({ field: { onChange } }) => <Select
+                                        onChange={val => onChange(val.map(c => c.value))}
+                                        className="basic-single select-css"
+                                        classNamePrefix="select"
+                                        placeholder=""
+                                        options={USERTYPE}
+                                        isMulti={true}
+                                    />}
                                 />
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Password<span className="text-danger">*</span></label >
                                 <div className="position-relative">
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.userGeneralInfo.password")} />
                                     <i title="Generate Password" className="icon-lock"></i>
                                 </div >
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Email</label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.userGeneralInfo.email")} />
                                 </div>
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Mobile<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.userGeneralInfo.phoneNumber")} />
                                 </div >
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Date Joined<span className="text-danger">*</span></label>
                                 <div>
-                                    <DesktopDatePicker
-                                        label=""
-                                        inputFormat="MM/DD/YYYY"
-                                        value={selectedDate}
-                                        onChange={handleDateChange}
-                                        renderInput={(params) => <TextField {...params} />}
+                                    <Controller
+                                        name="userForm.userGeneralInfo.dateJoined"
+                                        control={control}
+                                        render={({ field: { onChange, value, ...restField } }) => <DesktopDatePicker
+                                            label=""
+                                            inputFormat="MM/DD/YYYY"
+                                            value={value}
+                                            // onChange={handleDateChange}
+                                            onChange={(event) => { onChange(event); setSelectedDate(event); }}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />}
                                     />
+
                                 </div>
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Postal Code</label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.userGeneralInfo.postalCode")} />
                                 </div>
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Address 1<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.userGeneralInfo.addressOne")} />
                                 </div>
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Address 2</label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.userGeneralInfo.addressTwo")} />
                                 </div>
                             </div>
                         </div >
@@ -128,17 +125,22 @@ function UserForm() {
                             <div className="input-wrap error-invisible">
                                 <label>NRIC / FIN<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.particularModel.nricfin")} />
                                 </div>
                             </div>
                             <div className="select-wrap error-invisible">
                                 <label>Citizenship<span className="text-danger">*</span></label>
-                                <Select
-                                    className="basic-single select-css"
-                                    classNamePrefix="select"
-                                    placeholder=""
-                                    options={USERTYPE}
-                                    isMulti={true}
+                                <Controller
+                                    name="userForm.particularModel.citizenshipId"
+                                    control={control}
+                                    render={({ field: { onChange } }) => <Select
+                                        onChange={val => onChange(val.map(c => c.value))}
+                                        className="basic-single select-css"
+                                        classNamePrefix="select"
+                                        placeholder=""
+                                        options={USERTYPE}
+                                        isMulti={true}
+                                    />}
                                 />
                             </div>
                             <div className="input-wrap error-invisible">
@@ -159,53 +161,81 @@ function UserForm() {
                                     <input type="text" />
                                 </div>
                             </div>
-                            <div className="input-wrap error-invisible">
+                            <div className="select-wrap error-invisible">
                                 <label>Pass Type<span className="text-danger">*</span></label>
-                                <div>
-                                    <input type="text" />
-                                </div>
+                                <Controller
+                                    name="userForm.particularModel.workPass"
+                                    control={control}
+                                    render={({ field: { onChange } }) => <Select
+                                        onChange={val => onChange(val.map(c => c.value))}
+                                        className="basic-single select-css"
+                                        classNamePrefix="select"
+                                        placeholder=""
+                                        options={WORKPASS}
+                                        isMulti={true}
+                                    />}
+                                />
                             </div >
-                            <div className="input-wrap error-invisible">
+                            <div className="select-wrap error-invisible">
                                 <label>Work Pass Expiry</label>
-                                <div className="position-relative">
-                                    <input type="text" />
-                                </div>
+                                <Controller
+                                    name="userForm.particularModel.workPassExpiry"
+                                    control={control}
+                                    render={({ field: { onChange } }) => <Select
+                                        onChange={val => onChange(val.map(c => c.value))}
+                                        className="basic-single select-css"
+                                        classNamePrefix="select"
+                                        placeholder=""
+                                        options={WORKPASS}
+                                        isMulti={true}
+                                    />}
+                                />
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Emergency Contact<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.particularModel.emergencyContactNo")} />
                                 </div>
                             </div >
                             <div className="input-wrap error-invisible">
                                 <label>Relationship<span className="text-danger">*</span></label>
                                 <div>
-                                    <input type="text" />
+                                    <input type="text" {...register("userForm.particularModel.relationship")} />
                                 </div>
                             </div >
                             <div className="select-wrap error-invisible">
                                 <label>Business company<span className="text-danger">*</span></label>
-                                <Select
-                                    className="basic-single select-css"
-                                    classNamePrefix="select"
-                                    placeholder=""
-                                    options={businessCompany && businessCompany.companies.length > 0 ? businessCompany.companies.map((item) => {
-                                        return {
-                                            value: item.id,
-                                            label: item.code,
-                                            ...item
-                                        }
-                                    }) : undefined}
+                                <Controller
+                                    name="userForm.particularModel.companyId"
+                                    control={control}
+                                    render={({ field: { onChange } }) => <Select
+                                        onChange={val => onChange(val)}
+                                        className="basic-single select-css"
+                                        classNamePrefix="select"
+                                        placeholder=""
+                                        options={businessCompany && businessCompany.companies.length > 0 ? businessCompany.companies.map((item) => {
+                                            return {
+                                                value: item.id,
+                                                label: item.code,
+                                                ...item
+                                            }
+                                        }) : undefined}
+                                    />}
                                 />
                             </div >
                             <div className="select-wrap error-invisible">
                                 <label>Group<span className="text-danger">*</span></label>
-                                <Select
-                                    className="basic-single select-css"
-                                    classNamePrefix="select"
-                                    placeholder=""
-                                    options={USERTYPE}
-                                    isMulti={true}
+                                <Controller
+                                    name="userForm.particularModel.groupIds"
+                                    control={control}
+                                    render={({ field: { onChange } }) => <Select
+                                        onChange={val => onChange(val.map(c => c.value))}
+                                        className="basic-single select-css"
+                                        classNamePrefix="select"
+                                        placeholder=""
+                                        options={USERTYPE}
+                                        isMulti={true}
+                                    />}
                                 />
                             </div >
                         </div >
