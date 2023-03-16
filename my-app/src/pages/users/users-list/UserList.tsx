@@ -1,5 +1,6 @@
 import { CircularProgress, Table, TableBody, TableCell, TableHead, TablePagination, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Group, User } from '../../../@core/apis/users/user-interface';
@@ -10,11 +11,19 @@ import './UserList.scss'
 
 function UserList() {
   const group: Group = useSelector((state: any) => state.user.group);
-  const [userList, setUserList] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const navigate = useNavigate();
+
+  const { isLoading, error, data } = useQuery(['repoData', group], () =>
+    getUserList(group.id, { amount: 100 }),
+    {
+      enabled : !!group?.id,
+      refetchOnWindowFocus: true,
+      keepPreviousData : true
+    }
+  )
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -23,20 +32,6 @@ function UserList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  useEffect(() => {
-    if (group) {
-      getAllUserList();
-    }
-  }, [group])
-
-  const getAllUserList = async () => {
-    setIsLoading(true);
-    const userData = await getUserList(group.id, { amount: 100 });
-    setUserList(userData.data);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  }
 
   const enumToText = (value: number, enumSource: any) => {
     return enumSource[value];
@@ -59,17 +54,17 @@ function UserList() {
       : false;
   }
 
-  const navigateUserCreate=()=>{
+  const navigateUserCreate = () => {
     navigate('/users/create')
   }
   return <>
     <>
       <div className="user-header d-flex justify-content-between">
-        <p className="user-title">User Management</p>
+        <p className="user-title" >User Management</p>
         <div className="user-action d-flex gap-1">
           <button className="button-yellow"><i className="icon-export"></i>Export data</button>
           <button className="button-blue"><i className="icon-import"></i>Import data</button>
-          <button onClick={()=>navigateUserCreate()} className="button-cyan"><i className="icon-plus"></i>Add new  user</button>
+          <button onClick={() => navigateUserCreate()} className="button-cyan"><i className="icon-plus"></i>Add new  user</button>
         </div>
       </div>
       <div className="table-wrapper">
@@ -91,7 +86,7 @@ function UserList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!isLoading ? userList.map((item, i) => (
+            {!isLoading ? data?.data.map((item, i) => (
               <TableRow
                 key={i}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -114,7 +109,7 @@ function UserList() {
             )) : <TableRow><TableCell colSpan={11} align="center"><CircularProgress color="success" /></TableCell></TableRow>}
           </TableBody>
         </Table>
-        <TablePagination
+        {/* <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
           count={userList.length}
@@ -122,7 +117,7 @@ function UserList() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        /> */}
       </div>
     </>
   </>;
