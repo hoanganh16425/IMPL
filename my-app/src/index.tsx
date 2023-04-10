@@ -5,6 +5,7 @@ import "./assets/styles/reset.scss";
 import "./assets/styles/style.scss";
 import "./index.scss";
 import "./assets/styles/button.scss";
+import "./assets/styles/table.scss"
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";

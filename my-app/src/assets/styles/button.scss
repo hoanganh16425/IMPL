@@ -76,3 +76,10 @@ a[class^="button-"] {
     background-color: var(--red-2);
     border-color: var(--red-2);
 }
+
+.button-white {
+    @include ButtonBase;
+    background-color: #fff;
+    border-color: #A3A3A3;
+    color: #858588;
+}

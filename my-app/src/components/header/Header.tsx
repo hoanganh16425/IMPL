@@ -9,7 +9,7 @@ function Header() {
   const userData: UserData = useSelector((state: any) => state.user.userData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [groupsData, setGroupsData] = useState<GroupSelect[] | any>();
+  const [groupsData, setGroupsData] = useState<GroupSelect[]>();
   const defaultValue = {
     value: "b39f1638-0f6c-499a-9f8a-62354499a941",
     label: "IMPL",

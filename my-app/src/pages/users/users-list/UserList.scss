@@ -1,3 +1,7 @@
+$search-bg-color: #fff;
+$search-border-focus-color: #3BA3DD;
+$filter-tag-bg-color: #E7F5FC;
+$filter-tag-color: #919499;
 $badge-colors: (
   "green": #00CC08,
   "blue": #2281E3,
@@ -25,6 +29,32 @@ $badge-colors: (
   }
 }
 
+.option {
+  column-gap: 20px;
+}
+
+.title-container {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.filter-button {
+  height: 37px;
+  outline: none;
+  border: 1px solid var(--grey-4);
+  border-radius: 25px;
+  padding: 8px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: $search-bg-color;
+  font-weight: 500;
+
+  &:hover {
+      border-color: $search-border-focus-color;
+  }
+}
 
 .user {
   &-title {
@@ -34,9 +64,6 @@ $badge-colors: (
     color: var(--cyan-3);
   }
 
-  &-header {
-    margin-bottom: 30px;
-  }
 }
 
 .table-wrapper {

@@ -3,26 +3,57 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Group, User } from '../../../@core/apis/users/user-interface';
+import { Group, GroupSelect } from '../../../@core/apis/users/user-interface';
 import { getUserList } from '../../../@core/apis/users/users';
 import { Department, PassType, WorkingDay } from '../../../@core/share/enum';
-import { USERTYPE_DISPLAY, USER_TYPE_COLOR } from '../../../@core/shared/constants';
+import { USERTYPE, USERTYPE_DISPLAY, USER_TYPE_COLOR } from '../../../@core/shared/constants';
+import Select, { components, GroupBase } from "react-select";
 import './UserList.scss'
+import { useForm } from 'react-hook-form';
+
+interface FormData {
+  filterForm: filterInfo
+}
+
+interface filterInfo {
+  name?: string;
+  userName?: string;
+  userType?: string;
+  passType?: string;
+  department?: string;
+  location?: string;
+  supervisor?: string;
+  email?: string;
+  mobile?: string;
+  workingDay?: string;
+  active?: string;
+}
 
 function UserList() {
   const group: Group = useSelector((state: any) => state.user.group);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [showFilter, setShowFilter] = useState(false);
+  const [dataFilter, setDataFilter] = useState<filterInfo>({} as filterInfo);
+  const { control, register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
+
   const navigate = useNavigate();
 
   const { isLoading, error, data } = useQuery(['repoData', group], () =>
     getUserList(group.id, { amount: 100 }),
     {
-      enabled : !!group?.id,
+      enabled: !!group?.id,
       refetchOnWindowFocus: true,
-      keepPreviousData : true
+      keepPreviousData: true
     }
   )
+
+  const onSubmit = handleSubmit(data => setDataFilter(data.filterForm));
+
+  const onRemoveFilter = (key: string) => {
+    setDataFilter({ ...dataFilter, [key]: "" })
+  }
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -60,13 +91,91 @@ function UserList() {
   return <>
     <>
       <div className="user-header d-flex justify-content-between">
-        <p className="user-title" >User Management</p>
+        <div className="title-container">
+          <p className="user-title" >User Management</p>
+          <button className="filter-button" onClick={() => setShowFilter(!showFilter)} type="button">
+            <i className="icon-filter"></i> Filter
+          </button>
+        </div>
         <div className="user-action d-flex gap-1">
           <button className="button-yellow"><i className="icon-export"></i>Export data</button>
           <button className="button-blue"><i className="icon-import"></i>Import data</button>
           <button onClick={() => navigateUserCreate()} className="button-cyan"><i className="icon-plus"></i>Add new  user</button>
         </div>
       </div>
+      <form className={`table-filter ${showFilter ? "show-filter" : ""}`} onSubmit={onSubmit}>
+        <div className="table-filter-wrap">
+          <i className="icon-cancel" onClick={() => setShowFilter(!showFilter)}></i>
+          <h2>User filters</h2>
+          <div className="table-filter-container">
+            <div className="table-search-filter">
+              <p className="filter-title">Name</p>
+              <input type="text" placeholder="Name" {...register("filterForm.name")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">User Name</p>
+              <input type="text" placeholder="User Name" {...register("filterForm.userName")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">User type</p>
+              <input type="text" placeholder="User type" {...register("filterForm.userType")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">Pass type</p>
+              <input type="text" placeholder="Pass type" {...register("filterForm.passType")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">Department</p>
+              <input type="text" placeholder="Department" {...register("filterForm.department")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">Location</p>
+              <input type="text" placeholder="Location" {...register("filterForm.location")} />
+            </div >
+            <div className="table-search-filter">
+              <p className="filter-title">Supervisor</p>
+              <input type="text" placeholder="Supervisor" {...register("filterForm.supervisor")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">Email</p>
+              <input type="email" placeholder="Email" {...register("filterForm.email")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">Mobile No.</p>
+              <input type="text" placeholder="Mobile No." {...register("filterForm.mobile")} />
+            </div>
+            <div className="table-search-filter">
+              <p className="filter-title">Working days</p>
+              <input type="text" placeholder="User Name" {...register("filterForm.workingDay")} />
+            </div >
+            <div className="table-search-filter">
+              <p className="filter-title">Active</p>
+              <input type="text" placeholder="User Name" {...register("filterForm.active")} />
+            </div >
+          </div >
+          <div className="filter-action">
+            <button type="button" onClick={() => setShowFilter(!showFilter)} className="button-white" >Cancel</button>
+            <button type="submit" onClick={onSubmit} className="button-blue" > Apply</button >
+          </div >
+        </div >
+      </form >
+      {
+        dataFilter && <div className="table-filter-tags">
+          {
+            Object.entries(dataFilter).map(([key, value]) => {
+              return value ? <div className="filter-tag" key={key} >
+                {key} is
+                <span>
+                  {value}
+                </span>
+                <button onClick={() => onRemoveFilter(key)}>
+                  <i className="icon-cross"></i>
+                </button>
+              </div> : null
+            })
+          }
+        </div >
+      }
       <div className="table-wrapper">
         <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>

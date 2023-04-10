@@ -31,6 +31,12 @@ export const menuSections: MenuSection[] = [
     name: "CRM",
     items: [
       {
+        route: "company",
+        name: "Company",
+        icon: "icon-company",
+        isDisplay: true
+      },
+      {
         route: "/",
         name: "Customer",
         icon: "icon-user-group",
@@ -170,29 +176,29 @@ export const USERTYPE: ISelectType[] = [
 ];
 
 export const DEPARTMENT: ISelectType[] = [
-	{ value: Department.SUPPORT, label: 'Support' },
-	{ value: Department.OPERATION, label: 'Operation' },
-	{ value: Department.TRANSPORT, label: 'Transport' },
-	{ value: Department.CS, label: 'CS' },
-	{ value: Department.FINANCE, label: 'Finance' },
-	{ value: Department.CREW, label: 'Crew' },
+  { value: Department.SUPPORT, label: 'Support' },
+  { value: Department.OPERATION, label: 'Operation' },
+  { value: Department.TRANSPORT, label: 'Transport' },
+  { value: Department.CS, label: 'CS' },
+  { value: Department.FINANCE, label: 'Finance' },
+  { value: Department.CREW, label: 'Crew' },
 ];
 
 export const WORKINGDAY: ISelectType[] = [
-	{ value: WorkingDay.MONDAY, label: 'Monday' },
-	{ value: WorkingDay.TUESDAY, label: 'Tuesday' },
-	{ value: WorkingDay.WEDNESDAY, label: 'Wednesday' },
-	{ value: WorkingDay.THURSDAY, label: 'Thursday' },
-	{ value: WorkingDay.FRIDAY, label: 'Friday' },
-	{ value: WorkingDay.SATURDAY, label: 'Saturday' },
-	{ value: WorkingDay.SUNDAY, label: 'Sunday' },
+  { value: WorkingDay.MONDAY, label: 'Monday' },
+  { value: WorkingDay.TUESDAY, label: 'Tuesday' },
+  { value: WorkingDay.WEDNESDAY, label: 'Wednesday' },
+  { value: WorkingDay.THURSDAY, label: 'Thursday' },
+  { value: WorkingDay.FRIDAY, label: 'Friday' },
+  { value: WorkingDay.SATURDAY, label: 'Saturday' },
+  { value: WorkingDay.SUNDAY, label: 'Sunday' },
 ];
 
 export const WORKPASS: ISelectType[] = [
-	{ value: PassType.EPASS, label: 'E-Pass' },
-	{ value: PassType.WPASS, label: 'W-Pass' },
-	{ value: PassType.SPASS, label: 'S-Pass' },
-	{ value: PassType.SGNRIC, label: 'SG NRIC' },
-	{ value: PassType.KTP, label: 'KTP' },
-	{ value: PassType.MSIANRIC, label: 'MSIA NRIC' },
+  { value: PassType.EPASS, label: 'E-Pass' },
+  { value: PassType.WPASS, label: 'W-Pass' },
+  { value: PassType.SPASS, label: 'S-Pass' },
+  { value: PassType.SGNRIC, label: 'SG NRIC' },
+  { value: PassType.KTP, label: 'KTP' },
+  { value: PassType.MSIANRIC, label: 'MSIA NRIC' },
 ];
